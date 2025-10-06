@@ -26,3 +26,24 @@ func GetAll() []entities.Category {
 
 	return categories
 }
+
+func Create(category entities.Category) bool {
+	result, err := config.DB.Exec(`
+	INSERT INTO categories (name, created_at, updated_at)
+	VALUE(?, ?, ?)`,
+		category.Name, category.CreatedAt, category.UpdatedAt,
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	lastInserId, err := result.LastInsertId()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return lastInserId > 0
+
+}
