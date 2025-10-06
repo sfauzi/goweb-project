@@ -11,7 +11,7 @@ var DB *sql.DB
 
 func ConnectDB() {
 
-	db, err := sql.Open("mysql", "root:@/goweb_project")
+	db, err := sql.Open("mysql", "root:@/goweb_project?parseTime=true")
 	if err != nil {
 		panic(err)
 	}
